@@ -4,8 +4,8 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @books.each do |book| 
-      book.user_books.each do |user|
-        user.img = Twitter.user(user.twitter_id)['profile_image_url']
+      book.user_books.each do |u|
+        u.img = Twitter.user(u.twitter_id)['profile_image_url']
       end
     end
     respond_to do |format|
@@ -85,13 +85,14 @@ class BooksController < ApplicationController
     end
   end
 
-  def request
-    book = Book.find(params[:id])
-    book.user_books.each do |u|
-      @message.push({:img => Twitter.user(u.twitter_id)['profile_image_url'],
-                     :twitter_id=>u.twitter_id,
-                     :msg => "Please Rent Me Your Book #{book.name}"})
-    end
+  def req
+   book = Book.find(params[:id])
+   @message = Array.new
+   book.user_books.each do |u|
+     @message.push({:img => Twitter.user(u.twitter_id)['profile_image_url'],
+                    :twitter_id=>u.twitter_id,
+                    :msg => "Please Rent Me Your Book #{book.name}"})
+   end
   end
 
 end

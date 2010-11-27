@@ -13,8 +13,8 @@
   </tr>
 
 <% @books.each do |book| %>
-  <%= form_tag('/books/request') %>
-    <tr>
+   <%= form_tag('/books/req') do -%>
+   <tr>
       <td><%= book.id %></td>
       <td><%= book.isdn %></td>
       <td><%= book.name %></td>
@@ -23,7 +23,7 @@
       <td>
         <% book.user_books.each do |u| %>
           <span>
-            <img src="<%= u.img   %>" alt="<%= u.twitter_id %>">
+            <img src="<%= u.img %>" alt="<%= u.twitter_id %>">
             <%= check_box("twitter_id", u.twitter_id) %>
           </span>
         <% end %>
@@ -33,12 +33,10 @@
       <td><%= link_to 'Destroy', book, :confirm => 'Are you sure?', :method => :delete %></td>
       <%= hidden_field_tag 'id', book.id %>
       <td><%= submit_tag 'rent me'%></td>
-    </form>
-  </tr>
+    </tr>
+  <% end -%>
 <% end %>
 </table>
-
-
 
 <br />
 
