@@ -1,7 +1,15 @@
 Bookrack::Application.routes.draw do
+
   root :to => "sessions#new"
   get "/oauth" => "sessions#oauth"
   get "/oauth_c" => "sessions#oauth_c"
+
+  resources :books
+
+  resources :user_books
+
+  match 'books/req'=>'books#req'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

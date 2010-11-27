@@ -1,0 +1,8 @@
+<%= form_tag 'books/rentme' do -%>
+  <% @message.each do |m| %>
+    <div><img src="<%=m[:img] %>"  alt="<%=m[:twitter_id] %>"></div>
+    <%= text_area_tag 'message[]', m[:msg], :rows => 4, :cols => 30 %>
+    <%= hidden_field_tag 'twitter_id[]', m[:twitter_id] %>
+  <% end %>
+  <%= submit_tag 'twit' %>
+<% end -%>
