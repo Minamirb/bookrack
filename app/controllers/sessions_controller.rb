@@ -1,0 +1,41 @@
+require 'rubygems'
+require 'twitter_oauth'
+class SessionsController < ApplicationController
+  CS_KEY = '3NC62rJtsXLwfJ02di1ww'
+  CS_SEC = 'UCsq2rlVaxZrxDaJuYLAgt8e95xRacUoWsq4e4zpAkE'
+  def new
+  end
+
+  def oauth
+    call_back_url = 'http://192.168.10.140:3000/oauth_c'
+    client = TwitterOAuth::Client.new(
+      :consumer_key => CS_KEY,
+      :consumer_secret => CS_SEC
+    )
+    request_token = client.request_token(:oauth_callback => call_back_url)
+    session[:request_token] = request_token.token
+    session[:request_token_secret] = request_token.secret
+    redirect_to request_token.authorize_url
+  end
+
+  def oauth_c
+    request_token        = session[:request_token]
+    request_token_secret = session[:request_token_secret]
+    client = TwitterOAuth::Client.new(
+      :consumer_key => CS_KEY,
+      :consumer_secret => CS_SEC
+    )
+
+    access_token = client.authorize(
+      request_token,
+      request_token_secret,
+      :oauth_verifier => params[:oauth_verifier]
+    )
+    info = client.info
+
+    if client.authorized?
+      redirect_to :controller => :books, :action => :index, :id =>  id
+    end
+  end
+
+end
