@@ -31,10 +31,14 @@ class SessionsController < ApplicationController
       request_token_secret,
       :oauth_verifier => params[:oauth_verifier]
     )
-    info = client.info
 
     if client.authorized?
+      info = client.info
+      id = info["id"]
       redirect_to :controller => :books, :action => :index, :id =>  id
+    else
+      #flash[:info] = "ログインに失敗したのでもう一度がんばってね"
+      redirect_to :action => :new
     end
   end
 
