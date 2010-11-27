@@ -84,4 +84,14 @@ class BooksController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def request
+    book = Book.find(params[:id])
+    book.user_books.each do |u|
+      @message.push({:img => Twitter.user(u.twitter_id)['profile_image_url'],
+                     :twitter_id=>u.twitter_id,
+                     :msg => "Please Rent Me Your Book #{book.name}"})
+    end
+  end
+
 end

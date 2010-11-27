@@ -1,8 +1,8 @@
 Bookrack::Application.routes.draw do
   resources :books
-
   resources :user_books
 
+  match 'books/request'=>'books#request'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
