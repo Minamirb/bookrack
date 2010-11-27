@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def oauth
-    call_back_url = 'http://192.168.10.140:3000/oauth_c'
+    call_back_url = 'http://localhost:3000/oauth_c'
     client = TwitterOAuth::Client.new(
       :consumer_key => CS_KEY,
       :consumer_secret => CS_SEC
@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
 
     if client.authorized?
       info = client.info
-      id = info["id"]
+      id = info["screen_name"]
       redirect_to :controller => :books, :action => :index, :id =>  id
     else
       #flash[:info] = "ログインに失敗したのでもう一度がんばってね"
