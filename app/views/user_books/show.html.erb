@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Book:</b>
+  <%= @user_book.book_id %>
+</p>
+
+<p>
+  <b>Twitter:</b>
+  <%= @user_book.twitter_id %>
+</p>
+
+<p>
+  <b>Rental flag:</b>
+  <%= @user_book.rental_flag %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_book_path(@user_book) %> |
+<%= link_to 'Back', user_books_path %>
