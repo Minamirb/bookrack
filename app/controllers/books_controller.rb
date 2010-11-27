@@ -91,7 +91,7 @@ class BooksController < ApplicationController
    book.user_books.each do |u|
      @message.push({:img => Twitter.user(u.twitter_id)['profile_image_url'],
                     :twitter_id=>u.twitter_id,
-                    :msg => "Please Rent Me Your Book #{book.name}"})
+                    :msg => "Please Rent Me Your Book <<#{book.name}>>"})
    end
   end
 
